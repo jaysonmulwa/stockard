@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package stock; 
+
+service StockingService {
+  rpc CreateConsignment(Consignment) returns (Response) {}
+}
+
+message Consignment {
+  string id = 1;
+  string description = 2;
+  int32 weight = 3;
+  repeated Item items = 4;
+}
+
+message Item {
+  string id = 1;
+  string name = 2;
+  string quatity = 3;
+  string price = 4;
+  string units =5;
+}
+
+message Response {
+  bool created = 1;
+  Consignment consignment = 2;
+}

@@ -73,7 +73,7 @@ func main() {
 	service := micro.NewService(
 
 		// This name must match the package name given in your protobuf definition
-		micro.Name("shippy.service.consignment"),
+		micro.Name("stockard.service.stock"),
 	)
 
 	// Init will parse the command line flags.

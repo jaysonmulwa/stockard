@@ -9,12 +9,14 @@ import (
 	"context"
 
 	pb "github.com/jaysonmulwa/stockard/stockard-service-stock/proto/stock"
-	"google.golang.org/grpc"
+	"github.com/micro/go-micro/v2"
+	
 )
 
+//"google.golang.org/grpc"
 
 const (
-	address         = "localhost:50051"
+	//address         = "localhost:50051"
 	defaultFilename = "stock.json"
 )
 
@@ -30,12 +32,18 @@ func parseFile(file string) (*pb.Consignment, error) {
 
 func main() {
 	// Set up a connection to the server.
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	/*conn, err := grpc.Dial(address, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("Did not connect: %v", err)
 	}
 	defer conn.Close()
-	client := pb.NewShippingServiceClient(conn)
+	client := pb.NewShippingServiceClient(conn)*/
+
+	service := micro.NewService(micro.Name("stockard.cli.stock"))
+	service.Init()
+
+	client := pb.NewShippingService("stockard.service.stock", service.Client())
+
 
 	// Contact the server and print out its response.
 	file := defaultFilename
